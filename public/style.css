@@ -2,123 +2,238 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f0f2f5;
+    /* Updated background with a subtle gradient */
+    background: linear-gradient(to right, #6a11cb 0%, #2575fc 100%);
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     color: #333;
+    overflow: hidden; /* Prevent scrollbar from body */
 }
 
 .chat-container {
-    background-color: #ffffff;
+    background: linear-gradient(to right, #8aade8 0%, #c39eeb 100%); /* Soft gradient for the container */
     padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 15px; /* Slightly more rounded corners */
+    /* Enhanced box-shadow for a lifted effect */
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.25);
     width: 90%;
-    max-width: 500px;
+    max-width: 550px; /* Slightly wider */
     display: flex;
     flex-direction: column;
-    height: 70vh; /* Set a fixed height for the chat window */
+    height: 75vh; /* Slightly taller */
+    position: relative;
+    overflow: hidden; /* Ensure nothing spills out of container */
+    animation: fadeInScale 0.8s ease-out forwards; /* Animation for container */
+}
+
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 h1 {
     text-align: center;
-    color: #2c3e50;
-    margin-bottom: 20px;
+    color: #2c3e50; /* Keep the existing color for consistency */
+    margin-bottom: 25px; /* More space */
+    font-size: 2.2em; /* Slightly larger heading */
+    letter-spacing: 1px;
+    position: relative;
+}
+
+h1::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(to right, #6a11cb, #2575fc);
+    margin: 10px auto 0;
+    border-radius: 5px;
 }
 
 .username-section {
     display: flex;
     gap: 10px;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .username-section input[type="text"] {
     flex-grow: 1;
-    padding: 10px;
+    padding: 12px; /* Slightly more padding */
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 8px; /* More rounded input */
+    font-size: 1.05em;
+    transition: all 0.3s ease; /* Smooth transition */
+}
+
+.username-section input[type="text"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    outline: none;
 }
 
 .username-section button {
-    background-color: #007bff;
+    background: linear-gradient(to right, #007bff, #0056b3); /* Gradient button */
     color: white;
-    padding: 10px 15px;
+    padding: 10px 20px; /* More padding */
     border: none;
-    border-radius: 5px;
+    border-radius: 8px; /* More rounded button */
     cursor: pointer;
-    transition: background-color 0.2s;
+    font-size: 1.05em;
+    transition: all 0.3s ease; /* Smooth transition */
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
 }
 
 .username-section button:hover {
-    background-color: #0056b3;
+    background: linear-gradient(to right, #0056b3, #003f7f); /* Darker gradient on hover */
+    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
+    transform: translateY(-2px); /* Slight lift effect */
 }
 
 .messages {
-    flex-grow: 1; /* Allows messages area to take available space */
-    background-color: #e9ecef;
-    border-radius: 8px;
+    flex-grow: 1;
+    background-color: #f8f9fa; /* Lighter background for messages */
+    border-radius: 10px; /* More rounded corners */
     padding: 15px;
-    overflow-y: auto; /* Enable scrolling for messages */
+    overflow-y: auto;
     margin-bottom: 15px;
     display: flex;
-    flex-direction: column; /* Stack messages vertically */
-    gap: 10px; /* Space between messages */
+    flex-direction: column;
+    gap: 12px; /* More space between messages */
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05); /* Inner shadow for depth */
 }
 
+/* Scrollbar styling for Webkit browsers (Chrome, Safari) */
+.messages::-webkit-scrollbar {
+    width: 8px;
+}
+
+.messages::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.messages::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.messages::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+
 .message-item {
-    padding: 8px 12px;
-    border-radius: 6px;
-    word-wrap: break-word; /* Break long words */
-    max-width: 80%; /* Limit message width */
-    align-self: flex-start; /* Default alignment */
-    background-color: #f0f0f0;
+    padding: 10px 15px; /* More padding */
+    border-radius: 15px; /* More rounded message bubbles */
+    word-wrap: break-word;
+    max-width: 85%; /* Slightly wider message bubble */
+    align-self: flex-start;
+    background-color: #e2e6ea; /* Neutral background for others' messages */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    animation: slideInLeft 0.3s ease-out forwards; /* Animation for incoming messages */
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 .message-item.own-message {
-    background-color: #d1e7dd; /* Light green for own messages */
-    align-self: flex-end; /* Align own messages to the right */
+    background: linear-gradient(to right, #568561, #5b9a68); /* Green gradient for own messages */
+    color: white; /* White text for own messages */
+    align-self: flex-end;
+    animation: slideInRight 0.3s ease-out forwards; /* Animation for own messages */
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
 }
 
 .message-item .username {
-    font-weight: bold;
-    color: #007bff;
-    margin-bottom: 4px;
+    font-weight: 600; /* Slightly bolder username */
+    color: #0056b3; /* Darker blue for others' username */
+    margin-bottom: 5px; /* More space below username */
     display: block;
+    font-size: 0.9em; /* Slightly smaller username */
 }
 
 .message-item.own-message .username {
-    color: #28a745; /* Darker green for own username */
+    color: #d1e7dd; /* Lighter green/white for own username */
 }
 
 .message-input-area {
     display: flex;
     gap: 10px;
+    margin-top: auto; /* Push to bottom */
 }
 
 .message-input-area input[type="text"] {
     flex-grow: 1;
-    padding: 10px;
+    padding: 12px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 8px;
+    font-size: 1.05em;
+    transition: all 0.3s ease;
+}
+
+.message-input-area input[type="text"]:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.25);
+    outline: none;
 }
 
 .message-input-area button {
-    background-color: #28a745;
+    background: linear-gradient(to right, #28a745, #218838); /* Green gradient for send button */
     color: white;
-    padding: 10px 15px;
+    padding: 10px 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    font-size: 1.05em;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.2);
 }
 
 .message-input-area button:disabled {
-    background-color: #cccccc;
+    background: #cccccc;
     cursor: not-allowed;
+    box-shadow: none;
 }
 
 .message-input-area button:hover:enabled {
-    background-color: #218838;
+    background: linear-gradient(to right, #218838, #1e7e34); /* Darker green gradient on hover */
+    box-shadow: 0 6px 12px rgba(40, 167, 69, 0.3);
+    transform: translateY(-2px);
+}
+.app-footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 0.9em;
+    color: #6c757d; /* Lighter gray for footer */
+}
+
+.dev{
+    color:#0056b3;
+    font-size: large;
 }
